@@ -1,0 +1,18 @@
+services:
+  server:
+    build:
+      context: .
+      target: dev  # Use o estágio dev do Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app/src  # Monta o código local no container
+      - ./cmd/server/.env:/app/cmd/server/.env  # Monta o .env no local correto
+
+    environment:
+      GO111MODULE: "on" # Garantir que os módulos Go estejam ativados
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
